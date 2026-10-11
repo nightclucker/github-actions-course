@@ -1,0 +1,27 @@
+name: 08 - Using Variables
+
+on:
+    push:
+    workflow_dispatch:
+
+env:
+    WORKFLOW_VAR: "I am a workflow variable"
+    OVERWRITTEN: "I will be overwritten"
+
+jobs:
+    echo:
+        runs-on: ubuntu-latest
+        env:
+            JOB_VAR: "I am a job variable"
+            OVERWRITTEN: "I will be overwritten by the step variable"
+        steps:
+            - name: "Display Environment Variables"
+              env:
+                STEP_VAR: "I am a step variable"
+                step_var2: "I am another step env var"
+              run: |
+                echo "Step Variable: ${{ env.STEP_VAR }}"
+                echo "Step Variable 2: $step_var2"
+                echo "Job Variable: ${{ env.JOB_VAR }}"
+                echo "Overwritten Variable: ${{ env.OVERWRITTEN }}"
+                echo "Workflow Variable: ${{ env.WORKFLOW_VAR }}"
